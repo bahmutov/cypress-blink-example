@@ -2,8 +2,9 @@
 
 describe('TodoMVC App', () => {
   it('shows loading element', () => {
-    cy.visit('/')
+    cy.visit('/?delay=500')
     cy.get('.loading').should('be.visible')
     cy.get('.loading').should('not.be.visible')
+    cy.get('li.todo').should('have.length', 2)
   })
 })

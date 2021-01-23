@@ -2,7 +2,7 @@
   "todos": [
     {
       "title": "write code",
-      "completed": false,
+      "completed": true,
       "id": "4963429865"
     },
     {
