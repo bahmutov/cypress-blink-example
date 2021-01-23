@@ -1,13 +1,11 @@
 /* global Vue, Vuex, axios */
 /* eslint-disable no-console */
 /* eslint-disable-next-line */
-;(function() {
+;(function () {
   Vue.use(Vuex)
 
   function randomId() {
-    return Math.random()
-      .toString()
-      .substr(2, 10)
+    return Math.random().toString().substr(2, 10)
   }
 
   const store = new Vuex.Store({
@@ -15,12 +13,12 @@
       loading: false,
       todos: [],
       newTodo: '',
-      delay: 0
+      delay: 0,
     },
     getters: {
-      newTodo: state => state.newTodo,
-      todos: state => state.todos,
-      loading: state => state.loading
+      newTodo: (state) => state.newTodo,
+      todos: (state) => state.todos,
+      loading: (state) => state.loading,
     },
     mutations: {
       SET_DELAY(state, delay) {
@@ -44,7 +42,7 @@
       },
       CLEAR_NEW_TODO(state) {
         state.newTodo = ''
-      }
+      },
     },
     actions: {
       setDelay({ commit }, delay) {
@@ -59,15 +57,15 @@
 
           axios
             .get('/todos')
-            .then(r => r.data)
-            .then(todos => {
+            .then((r) => r.data)
+            .then((todos) => {
               commit('SET_TODOS', todos)
               commit('SET_LOADING', false)
               const loadingStopped = Number(new Date())
               const loadingTook = loadingStopped - loadingStarted
-              console.log('loading took', loadingTook)
+              console.log('>>>loading took', loadingTook)
             })
-            .catch(e => {
+            .catch((e) => {
               console.error('could not load todos')
               console.error(e.message)
               console.error(e.response.data)
@@ -92,7 +90,7 @@
         const todo = {
           title: state.newTodo,
           completed: false,
-          id: randomId()
+          id: randomId(),
         }
         // artificial delay in the application
         // for test "flaky test - can pass or not depending on the app's speed"
@@ -108,7 +106,7 @@
       addEntireTodo({ commit }, todoFields) {
         const todo = {
           ...todoFields,
-          id: randomId()
+          id: randomId(),
         }
         axios.post('/todos', todo).then(() => {
           commit('ADD_TODO', todo)
@@ -125,26 +123,26 @@
       },
       // example promise-returning action
       addTodoAfterDelay({ commit }, { milliseconds, title }) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           setTimeout(() => {
             const todo = {
               title,
               completed: false,
-              id: randomId()
+              id: randomId(),
             }
             commit('ADD_TODO', todo)
             resolve()
           }, milliseconds)
         })
-      }
-    }
+      },
+    },
   })
 
   // app Vue instance
   const app = new Vue({
     store,
     data: {
-      file: null
+      file: null,
     },
     el: '.todoapp',
 
@@ -169,7 +167,7 @@
       },
       todos() {
         return this.$store.getters.todos
-      }
+      },
     },
 
     // methods that implement data logic.
@@ -196,8 +194,8 @@
       // utility method for create a todo with title and completed state
       addEntireTodo(title, completed = false) {
         this.$store.dispatch('addEntireTodo', { title, completed })
-      }
-    }
+      },
+    },
   })
 
   // if you want to expose "app" globally only

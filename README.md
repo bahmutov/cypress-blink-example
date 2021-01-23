@@ -4,3 +4,5 @@
 TODO: insert the link to the published blog post
 
 ![test in action](images/app.png)
+
+Also read [Be Careful With Negative Assertions](https://glebbahmutov.com/blog/negative-assertions/).
